@@ -1,30 +1,3 @@
-# Template for Bazel rules
-
-Copy this template to create a Bazel ruleset.
-
-Features:
-
-- follows the official style guide at https://docs.bazel.build/versions/main/skylark/deploying.html
-- includes Bazel formatting as a pre-commit hook (using [buildifier])
-- includes typical toolchain setup
-- CI configured with GitHub Actions
-- Release on GitHub Actions when pushing a tag
-
-See https://docs.bazel.build/versions/main/skylark/deploying.html#readme
-
-[buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier#readme
-
-Ready to get started? Copy this repo, then
-
-1. search for "slamdev_rules_helm" and replace with the name you'll use for your workspace
-1. search for "helm" and replace with the language/tool your rules are for
-1. rename directory "helm" similarly
-1. run `pre-commit install` to get lints (see CONTRIBUTING.md)
-1. if you don't need to fetch platform-dependent tools, then remove anything toolchain-related.
-1. delete this section of the README (everything up to the SNIP).
-
----- SNIP ----
-
 # Bazel rules for helm
 
 ## Installation
@@ -35,7 +8,7 @@ Include this in your WORKSPACE file:
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
     name = "slamdev_rules_helm",
-    url = "https://github.com/myorg/rules_helm/releases/download/0.0.0/rules_helm-0.0.0.tar.gz",
+    url = "https://github.com/slamdev/rules_helm/releases/download/0.0.0/rules_helm-0.0.0.tar.gz",
     sha256 = "",
 )
 

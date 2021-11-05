@@ -65,7 +65,7 @@ def helm_register_toolchains(name, **kwargs):
     """Convenience macro for users which does typical setup.
 
     - create a repository for each built-in platform like "helm_linux_amd64" -
-      this repository is lazily fetched when node is needed for that platform.
+      this repository is lazily fetched when helm is needed for that platform.
     - TODO: create a convenience repository for the host platform like "helm_host"
     - create a repository exposing toolchains for each platform like "helm_platforms"
     - register a toolchain pointing at each platform

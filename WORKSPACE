@@ -1,10 +1,6 @@
 # Declare the local Bazel workspace.
 # This is *not* included in the published distribution.
 workspace(
-    # If your ruleset is "official"
-    # (i.e. is in the bazelbuild GitHub org)
-    # then this should just be named "rules_helm"
-    # see https://docs.bazel.build/versions/main/skylark/deploying.html#workspace
     name = "slamdev_rules_helm",
 )
 
