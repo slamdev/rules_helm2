@@ -17,7 +17,7 @@ filegroup(
         "*.bzl",
         "*.bazel",
     ]) + [
-        "//mylang/private:package_content",
+        "//helm/private:package_content",
     ],
     visibility = ["//:__pkg__"],
 )
@@ -33,8 +33,8 @@ bzl_library(
     srcs = ["repositories.bzl"],
     visibility = ["//visibility:public"],
     deps = [
-        "//mylang/private:toolchains_repo",
-        "//mylang/private:versions",
+        "//helm/private:toolchains_repo",
+        "//helm/private:versions",
         "@bazel_tools//tools/build_defs/repo:http.bzl",
         "@bazel_tools//tools/build_defs/repo:utils.bzl",
     ],
