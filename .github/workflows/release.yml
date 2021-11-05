@@ -27,6 +27,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          prerelease: true
           files: |
             bazel-out/*/bin/path/to/some/output
