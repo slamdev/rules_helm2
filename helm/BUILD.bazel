@@ -34,8 +34,8 @@ bzl_library(
     visibility = ["//visibility:public"],
     deps = [
         "//helm/private/rules:helm_chart",
-        "//helm/private/rules:helm_install",
         "//helm/private/rules:helm_import",
+        "//helm/private/rules:helm_install",
         "//helm/private/rules:helm_lint",
         "//helm/private/rules:helm_template",
     ],
@@ -58,9 +58,9 @@ bzl_library(
     visibility = ["//visibility:public"],
     deps = [
         "@bazel_gazelle//:deps",
-        "@io_bazel_rules_go//go:deps",
-        "@bazel_tools//tools/build_defs/repo:http.bzl",
         "@bazel_tools//tools/build_defs/repo:git_worker.bzl",
+        "@bazel_tools//tools/build_defs/repo:http.bzl",
+        "@io_bazel_rules_go//go:deps",
     ],
 )
 
@@ -75,7 +75,7 @@ bzl_library(
     srcs = ["deps.bzl"],
     visibility = ["//visibility:public"],
     deps = [
-        ":repositories",
         ":go_deps",
+        ":repositories",
     ],
 )
