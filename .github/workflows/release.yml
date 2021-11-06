@@ -25,7 +25,7 @@ jobs:
           XDG_CACHE_HOME: ~/.cache/bazel-repo
         run: bazel --bazelrc=.github/workflows/ci.bazelrc --bazelrc=.bazelrc build //:slamdev_rules_helm
       - name: Set versioned archive name
-        run: cp bazel-bin/rules_helm.tar.gz bazel-bin/slamdev_rules_helm-v${{ env.RELEASE_VERSION }}.tar.gz
+        run: cp bazel-bin/slamdev_rules_helm.tar.gz bazel-bin/slamdev_rules_helm-v${{ env.RELEASE_VERSION }}.tar.gz
       - name: Export checksum
         run: 'echo "RELEASE_CHECKSUM=$(shasum -b -a 256 bazel-bin/slamdev_rules_helm-v${{ env.RELEASE_VERSION }}.tar.gz | cut -d " " -f 1)" >> $GITHUB_ENV'
       - name: Upload release
