@@ -23,7 +23,7 @@ jobs:
         env:
           # Bazelisk will download bazel to here
           XDG_CACHE_HOME: ~/.cache/bazel-repo
-        run: bazel --bazelrc=.github/workflows/ci.bazelrc --bazelrc=.bazelrc build //:rules_helm
+        run: bazel --bazelrc=.github/workflows/ci.bazelrc --bazelrc=.bazelrc build //:slamdev_rules_helm
       - name: Set versioned archive name
         run: cp bazel-bin/rules_helm.tar.gz bazel-bin/slamdev_rules_helm-v${{ env.RELEASE_VERSION }}.tar.gz
       - name: Export checksum
