@@ -16,7 +16,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os:
+          - ubuntu-latest
+          - macos-latest
+          # builds on windows fail
+          # https://github.com/bazelbuild/rules_docker/issues/1524
+          # https://github.com/bazelbuild/rules_docker/issues/1438
+          # - windows-latest
         bazel: [ 4.2.1, 5.0.0-pre.20211011.2 ]
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
