@@ -40,7 +40,12 @@ jobs:
           key: bazel-repo
       - name: Set Bazelisk Version ${{ matrix.bazel }}
         run: echo ${{ matrix.bazel }} > .bazelversion
-      - name: bazel test //...
+      - name: Build
+        env:
+          # Bazelisk will download bazel to here
+          XDG_CACHE_HOME: ~/.cache/bazel-repo
+        run: bazel --bazelrc=.github/workflows/ci.bazelrc --bazelrc=.bazelrc build //...
+      - name: Test
         env:
           # Bazelisk will download bazel to here
           XDG_CACHE_HOME: ~/.cache/bazel-repo

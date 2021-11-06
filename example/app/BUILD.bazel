@@ -1,0 +1,18 @@
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+
+go_image(
+    name = "image",
+    srcs = ["main.go"],
+    visibility = ["//example:__subpackages__"],
+)
+
+container_push(
+    name = "push",
+    format = "Docker",
+    image = ":image",
+    registry = "index.docker.io",
+    repository = "slamdev/helm-rules-example-app",
+    skip_unchanged_digest = True,
+    visibility = ["//example:__subpackages__"],
+)

@@ -9,6 +9,8 @@ load("@io_bazel_stardoc//stardoc:stardoc.bzl", "stardoc")
 # folder where the API docs are written.
 _DOCS = {
     "//helm:defs.bzl": "rules.md",
+    "//helm:deps.bzl": "deps.md",
+    "//helm:toolchain.bzl": "toolchain.md",
 }
 
 [

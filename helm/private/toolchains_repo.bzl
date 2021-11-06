@@ -20,25 +20,55 @@ with only the toolchain attribute pointing into the platform-specific repositori
 # Add more platforms as needed to mirror all the binaries
 # published by the upstream project.
 PLATFORMS = {
-    "x86_64-apple-darwin": struct(
+    "darwin-amd64": struct(
         compatible_with = [
             "@platforms//os:macos",
             "@platforms//cpu:x86_64",
         ],
     ),
-    "aarch64-apple-darwin": struct(
+    "darwin-arm64": struct(
         compatible_with = [
             "@platforms//os:macos",
-            "@platforms//cpu:aarch64",
+            "@platforms//cpu:arm64",
         ],
     ),
-    "x86_64-unknown-linux-gnu": struct(
+    "linux-amd64": struct(
         compatible_with = [
             "@platforms//os:linux",
             "@platforms//cpu:x86_64",
         ],
     ),
-    "x86_64-pc-windows-msvc": struct(
+    "linux-arm64": struct(
+        compatible_with = [
+            "@platforms//os:linux",
+            "@platforms//cpu:arm64",
+        ],
+    ),
+    "linux-arm": struct(
+        compatible_with = [
+            "@platforms//os:linux",
+            "@platforms//cpu:arm",
+        ],
+    ),
+    "linux-386": struct(
+        compatible_with = [
+            "@platforms//os:linux",
+            "@platforms//cpu:i386",
+        ],
+    ),
+    "linux-ppc64le": struct(
+        compatible_with = [
+            "@platforms//os:linux",
+            "@platforms//cpu:ppc",
+        ],
+    ),
+    "linux-s390x": struct(
+        compatible_with = [
+            "@platforms//os:linux",
+            "@platforms//cpu:s390x",
+        ],
+    ),
+    "windows-amd64": struct(
         compatible_with = [
             "@platforms//os:windows",
             "@platforms//cpu:x86_64",
@@ -89,7 +119,6 @@ resolved_toolchain(name = "resolved_toolchain", visibility = ["//visibility:publ
 toolchain(
     name = "{platform}_toolchain",
     exec_compatible_with = {compatible_with},
-    target_compatible_with = {compatible_with},
     toolchain = "@{user_repository_name}_{platform}//:helm_toolchain",
     toolchain_type = "@slamdev_rules_helm//helm:toolchain_type",
 )

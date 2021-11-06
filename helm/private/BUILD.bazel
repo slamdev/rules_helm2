@@ -5,18 +5,14 @@ filegroup(
     srcs = glob([
         "*.bzl",
         "*.bazel",
-    ]),
+    ]) + [
+        "//helm/private/rules:package_content",
+    ],
     visibility = ["//helm:__pkg__"],
 )
 
 bzl_library(
     name = "toolchains_repo",
     srcs = ["toolchains_repo.bzl"],
-    visibility = ["//helm:__subpackages__"],
-)
-
-bzl_library(
-    name = "versions",
-    srcs = ["versions.bzl"],
     visibility = ["//helm:__subpackages__"],
 )
