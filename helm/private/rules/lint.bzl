@@ -17,7 +17,7 @@ _ATTRS = {
 }
 
 def _impl(ctx):
-    cmd = [ctx.var["HELM_BIN"]]
+    cmd = [ctx.var["HELM_RUNFILES_BIN"]]
     cmd += ["lint"]
     cmd += [ctx.file.chart.short_path]
     if ctx.attr.strict:
