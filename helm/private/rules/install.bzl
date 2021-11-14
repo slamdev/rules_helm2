@@ -75,7 +75,7 @@ def _impl(ctx):
     )
 
 def _build_helm_command(ctx):
-    args = [ctx.var["HELM_BIN"]]
+    args = [ctx.var["HELM_RUNFILES_BIN"]]
     args.append("upgrade")
     args.append(ctx.attr.release_name)
     args.append(ctx.file.chart.short_path)
