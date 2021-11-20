@@ -4,12 +4,12 @@ load("@bazel_tools//tools/build_rules:test_rules.bzl", "rule_test")
 helm_chart(
     name = "chart",
     srcs = ["@redis//:srcs"],
+    values_files = ["values.yaml"],
     values_json = json.encode({
         "image": {
             "tag": "some-tag",
         },
     }),
-    values_files = ["values.yaml"],
 )
 
 rule_test(
