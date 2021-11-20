@@ -33,6 +33,9 @@ _ATTRS = {
     "validate": attr.bool(
         doc = "Validate your manifests against the Kubernetes cluster you are currently pointing at.",
     ),
+    "no_hooks": attr.bool(
+        doc = "Prevent hooks from running during install.",
+    ),
 }
 
 def _impl(ctx):
@@ -72,6 +75,8 @@ def _template(ctx):
         command += ["--validate"]
     if ctx.attr.namespace:
         command += ["--namespace", ctx.attr.namespace]
+    if ctx.attr.no_hooks:
+        command += ["--no-hooks"]
 
     ctx.actions.run_shell(
         inputs = [ctx.file.chart],

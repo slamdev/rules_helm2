@@ -108,7 +108,7 @@ Defines a helm lint execution.
 
 <pre>
 helm_template(<a href="#helm_template-name">name</a>, <a href="#helm_template-api_versions">api_versions</a>, <a href="#helm_template-chart">chart</a>, <a href="#helm_template-disable_openapi_validation">disable_openapi_validation</a>, <a href="#helm_template-include_crds">include_crds</a>, <a href="#helm_template-is_upgrade">is_upgrade</a>,
-              <a href="#helm_template-kube_version">kube_version</a>, <a href="#helm_template-namespace">namespace</a>, <a href="#helm_template-release_name">release_name</a>, <a href="#helm_template-validate">validate</a>)
+              <a href="#helm_template-kube_version">kube_version</a>, <a href="#helm_template-namespace">namespace</a>, <a href="#helm_template-no_hooks">no_hooks</a>, <a href="#helm_template-release_name">release_name</a>, <a href="#helm_template-validate">validate</a>)
 </pre>
 
 Defines a helm template execution.
@@ -126,6 +126,7 @@ Defines a helm template execution.
 | <a id="helm_template-is_upgrade"></a>is_upgrade |  Set .Release.IsUpgrade instead of .Release.IsInstall.   | Boolean | optional | False |
 | <a id="helm_template-kube_version"></a>kube_version |  Kubernetes version used for Capabilities.KubeVersion.   | String | optional | "" |
 | <a id="helm_template-namespace"></a>namespace |  Namespace scope for this reques.   | String | optional | "" |
+| <a id="helm_template-no_hooks"></a>no_hooks |  Prevent hooks from running during install.   | Boolean | optional | False |
 | <a id="helm_template-release_name"></a>release_name |  Release name used by helm.   | String | required |  |
 | <a id="helm_template-validate"></a>validate |  Validate your manifests against the Kubernetes cluster you are currently pointing at.   | Boolean | optional | False |
 
