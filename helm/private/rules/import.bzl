@@ -20,17 +20,40 @@ _ATTRS = {
     ),
 }
 
+def _find_chart_url(repository_ctx, repo_file, chart_file):
+    repo_def = repository_ctx.read(repo_file)
+    lines = repo_def.splitlines()
+    for l in lines:
+        l = l.lstrip(" ")
+        if l.startswith("-") and l.endswith(chart_file):
+            url = l.lstrip("-").lstrip(" ")
+            if url == chart_file:
+                return "{}/{}".format(repository_ctx.attr.repository, url)
+            if url.startswith("http") and url.endswith("/{}".format(chart_file)):
+                return url
+    print(repo_def)
+    fail("cannot find {} in {}".format(chart_file, repo_file))
+
 def _impl(repository_ctx):
+    repo_yaml = "index.yaml"
+
+    repository_ctx.download(
+        output = repo_yaml,
+        url = "{}/{}".format(
+            repository_ctx.attr.repository,
+            repo_yaml,
+        ),
+    )
     file_name = "{}-{}.tgz".format(
         repository_ctx.attr.chart_name,
         repository_ctx.attr.version,
     )
+
+    chart_url = _find_chart_url(repository_ctx, repo_yaml, file_name)
+
     repository_ctx.download(
         output = file_name,
-        url = "{}/{}".format(
-            repository_ctx.attr.repository,
-            file_name,
-        ),
+        url = chart_url,
         sha256 = repository_ctx.attr.sha256,
     )
     repository_ctx.extract(
