@@ -33,13 +33,20 @@ def _impl(repository_ctx):
         ),
         sha256 = repository_ctx.attr.sha256,
     )
+    repository_ctx.extract(
+        archive = file_name,
+    )
     repository_ctx.file("BUILD.bazel", content = """
 package(default_visibility = ["//visibility:public"])
 filegroup(
     name = "chart",
-    srcs = glob(["{}"]),
+    srcs = ["{}"],
 )
-    """.format(file_name))
+filegroup(
+    name = "srcs",
+    srcs = glob(["{}/**"]),
+)
+    """.format(file_name, repository_ctx.attr.chart_name))
 
 helm_import = repository_rule(
     doc = _DOC,

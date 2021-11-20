@@ -1,0 +1,48 @@
+load("//helm:defs.bzl", "helm_chart", "helm_install", "helm_lint_test", "helm_template")
+load("@bazel_tools//tools/build_rules:test_rules.bzl", "rule_test")
+
+helm_chart(
+    name = "chart",
+    srcs = ["@redis//:srcs"],
+    values_json = json.encode({
+        "image": {
+            "tag": "some-tag",
+        },
+    }),
+    values_files = ["values.yaml"],
+)
+
+rule_test(
+    name = "chart_test",
+    generates = ["chart.tgz"],
+    rule = ":chart",
+)
+
+helm_install(
+    name = "install",
+    chart = ":chart",
+    release_name = "hello-world",
+)
+
+rule_test(
+    name = "install_test",
+    generates = ["install"],
+    rule = ":install",
+)
+
+helm_template(
+    name = "template",
+    chart = ":chart",
+    release_name = "hello-world",
+)
+
+rule_test(
+    name = "template_test",
+    generates = ["template.yaml"],
+    rule = ":template",
+)
+
+helm_lint_test(
+    name = "lint",
+    chart = ":chart",
+)

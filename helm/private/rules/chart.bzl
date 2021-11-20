@@ -45,7 +45,7 @@ _ATTRS = {
         allow_files = [".yml", ".yaml"],
     ),
     "deps": attr.label_list(
-        doc = "Chart dependencies; must much the ones defined in a Chart.yaml file..",
+        doc = "Chart dependencies; must much the ones defined in a Chart.yaml file.",
         allow_files = [".tgz"],
     ),
     "_windows_constraint": attr.label(
@@ -109,13 +109,11 @@ def _build_user_values_file(ctx):
     return out_yaml
 
 def _package(ctx, srcs, user_values_file):
-    chart_path = None
-    for f in srcs:
-        if f.path.endswith("Chart.yaml"):
-            chart_path = f.dirname
-            break
-    if not chart_path:
+    chart_yaml = _root_file("Chart.yaml", srcs)
+    if chart_yaml == None:
         fail("Chart.yaml file is not found in srcs")
+
+    chart_path = chart_yaml.dirname
 
     out = ctx.actions.declare_directory(ctx.label.name + "-helm-chart-out")
 
@@ -150,24 +148,32 @@ def _package(ctx, srcs, user_values_file):
 
     return out
 
-def _merge_values(ctx, user_values_file):
-    default_values_file = None
-    for f in ctx.files.srcs:
-        if f.path.endswith("values.yaml"):
-            default_values_file = f
-            break
+def _file_len(file):
+    str = file.short_path
+    return len(str)
 
-    if not default_values_file:
+def _root_file(name, files):
+    found = []
+    for f in files:
+        if f.basename == name:
+            found.append(f)
+    found = sorted(found, key = _file_len)
+    if len(found) == 0:
         return None
+    return found[0]
+
+def _merge_values(ctx, user_values_file):
+    default_values_file = _root_file("values.yaml", ctx.files.srcs)
 
     out_yaml = ctx.actions.declare_file(ctx.label.name + "-merged-values.yaml")
 
+    inputs = []
     args = ctx.actions.args()
     args.add("merge-yamls")
     args.add("-output", out_yaml.path)
-    args.add("-file", default_values_file.path)
-
-    inputs = [default_values_file]
+    if default_values_file:
+        args.add("-file", default_values_file.path)
+        inputs.append(default_values_file)
 
     for f in ctx.files.values_files:
         args.add("-file", f.path)
@@ -188,13 +194,12 @@ def _merge_values(ctx, user_values_file):
     return out_yaml
 
 def _copy_chart(ctx, merged_values_file):
+    values_file = _root_file("values.yaml", ctx.files.srcs)
+
     outs = []
-    chart_path = None
     for f in ctx.files.srcs:
         src = f
-        if f.path.endswith("Chart.yaml"):
-            chart_path = ctx.label.name + "/" + f.dirname
-        if f.path.endswith("values.yaml") and merged_values_file:
+        if f == values_file and merged_values_file:
             src = merged_values_file
         copy = ctx.actions.declare_file(ctx.label.name + "/" + f.path)
         outs.append(copy)
@@ -212,8 +217,10 @@ def _copy_chart(ctx, merged_values_file):
             progress_message = "Copying %s file to %s " % (src.short_path, copy.short_path),
         )
 
-    if not chart_path:
+    chart_yaml = _root_file("Chart.yaml", ctx.files.srcs)
+    if chart_yaml == None:
         fail("Chart.yaml file is not found in srcs")
+    chart_path = ctx.label.name + "/" + chart_yaml.dirname
 
     for f in ctx.files.deps:
         src = f

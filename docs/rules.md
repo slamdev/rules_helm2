@@ -19,7 +19,7 @@ Defines a helm chart.
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="helm_chart-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="helm_chart-app_version"></a>app_version |  Set the appVersion on the chart to this version.   | String | optional | "" |
-| <a id="helm_chart-deps"></a>deps |  Chart dependencies; must much the ones defined in a Chart.yaml file..   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="helm_chart-deps"></a>deps |  Chart dependencies; must much the ones defined in a Chart.yaml file.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="helm_chart-image_digest_vars"></a>image_digest_vars |  Map of container image labels to a template keys, to extract digest from. <pre><code>image_digest_vars = {<br><br>    ":image": "{img_digest}",<br><br>}</code></pre>   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: Label -> String</a> | optional | {} |
 | <a id="helm_chart-srcs"></a>srcs |  Files to package into a chart; must contain a Chart.yaml file.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 | <a id="helm_chart-values_files"></a>values_files |  Specify values in a YAML file (can specify multiple).   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
