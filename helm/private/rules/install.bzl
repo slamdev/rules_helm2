@@ -45,6 +45,9 @@ _ATTRS = {
     "namespace": attr.string(
         doc = "Namespace scope for this reques.",
     ),
+    "template_output": attr.output(
+        doc = "Filename to dump the rendered chart",
+    ),
 }
 
 def _impl(ctx):
@@ -69,10 +72,21 @@ def _impl(ctx):
         is_executable = True,
     )
 
-    return DefaultInfo(
-        executable = executable,
-        runfiles = ctx.runfiles(runfiles),
-    )
+    result = [DefaultInfo(executable = executable, runfiles = ctx.runfiles(runfiles), files = depset())]
+
+    if ctx.outputs.template_output:
+        template_command = _build_template_command(ctx)
+        ctx.actions.run_shell(
+            inputs = [ctx.file.chart],
+            outputs = [ctx.outputs.template_output],
+            arguments = [ctx.outputs.template_output.path],
+            tools = ctx.toolchains["@slamdev_rules_helm//helm:toolchain_type"].default.files,
+            progress_message = "Rendering chart " + ctx.outputs.template_output.short_path,
+            command = template_command + " > $1",
+        )
+        result += [OutputGroupInfo(template = depset([ctx.outputs.template_output]))]
+
+    return result
 
 def _build_helm_command(ctx):
     args = [ctx.var["HELM_RUNFILES_BIN"]]
@@ -98,6 +112,19 @@ def _build_helm_command(ctx):
         args.append("--no-hooks")
     if ctx.attr.namespace:
         args.extend(["--namespace", ctx.attr.namespace])
+    return " ".join(args)
+
+def _build_template_command(ctx):
+    args = [ctx.var["HELM_BIN"]]
+    args += ["template"]
+    args += [ctx.attr.release_name]
+    args += [ctx.file.chart.path]
+    if ctx.attr.disable_openapi_validation:
+        args += ["--disable-openapi-validation"]
+    if ctx.attr.namespace:
+        args += ["--namespace", ctx.attr.namespace]
+    if ctx.attr.no_hooks:
+        args += ["--no-hooks"]
     return " ".join(args)
 
 install = rule(
