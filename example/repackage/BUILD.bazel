@@ -24,12 +24,6 @@ helm_install(
     release_name = "hello-world",
 )
 
-rule_test(
-    name = "install_test",
-    generates = ["install"],
-    rule = ":install",
-)
-
 helm_template(
     name = "template",
     chart = ":chart",

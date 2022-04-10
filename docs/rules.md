@@ -56,7 +56,8 @@ Defines an imported helm chart.
 
 <pre>
 helm_install(<a href="#helm_install-name">name</a>, <a href="#helm_install-atomic">atomic</a>, <a href="#helm_install-chart">chart</a>, <a href="#helm_install-cleanup_on_fail">cleanup_on_fail</a>, <a href="#helm_install-create_namespace">create_namespace</a>, <a href="#helm_install-description">description</a>,
-             <a href="#helm_install-disable_openapi_validation">disable_openapi_validation</a>, <a href="#helm_install-dry_run">dry_run</a>, <a href="#helm_install-force">force</a>, <a href="#helm_install-images">images</a>, <a href="#helm_install-namespace">namespace</a>, <a href="#helm_install-no_hooks">no_hooks</a>, <a href="#helm_install-release_name">release_name</a>)
+             <a href="#helm_install-disable_openapi_validation">disable_openapi_validation</a>, <a href="#helm_install-dry_run">dry_run</a>, <a href="#helm_install-force">force</a>, <a href="#helm_install-images">images</a>, <a href="#helm_install-namespace">namespace</a>, <a href="#helm_install-no_hooks">no_hooks</a>, <a href="#helm_install-release_name">release_name</a>,
+             <a href="#helm_install-template_output">template_output</a>)
 </pre>
 
 Defines a helm install execution.
@@ -79,6 +80,7 @@ Defines a helm install execution.
 | <a id="helm_install-namespace"></a>namespace |  Namespace scope for this reques.   | String | optional | "" |
 | <a id="helm_install-no_hooks"></a>no_hooks |  Prevent hooks from running during install\upgrade   | Boolean | optional | False |
 | <a id="helm_install-release_name"></a>release_name |  Release name used by helm.   | String | required |  |
+| <a id="helm_install-template_output"></a>template_output |  Filename to dump the rendered chart   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |  |
 
 
 <a id="#helm_lint_test"></a>
