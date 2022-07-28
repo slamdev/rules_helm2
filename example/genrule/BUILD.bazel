@@ -4,7 +4,7 @@ load("@bazel_tools//tools/build_rules:test_rules.bzl", "rule_test")
 genrule(
     name = "get_values",
     outs = ["values.yaml"],
-    cmd = "$(HELM_BIN) show values redis --repo https://charts.bitnami.com/bitnami --version 15.5.4 > $@",
+    cmd = "$(HELM_BIN) show values redis --repo https://charts.bitnami.com/bitnami --version 16.12.2 > $@",
     toolchains = ["@helm3_7_1_toolchains//:resolved_toolchain"],
     tools = ["@helm3_7_1_toolchains//:resolved_toolchain"],
 )

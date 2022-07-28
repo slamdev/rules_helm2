@@ -29,8 +29,8 @@ helm_import(
     name = "redis",
     chart_name = "redis",
     repository = "https://charts.bitnami.com/bitnami",
-    sha256 = "2df935b550a8769cc3e61cd9f9b49d5a035dcab02d71369192872a70c6311eaa",
-    version = "15.5.4",
+    sha256 = "39a9bbb760b1b992f744d06c6cb5c9db9103204a1348f31e76f9201ddeb2b604",
+    version = "16.12.2",
 )
 
 load("@io_bazel_rules_docker//repositories:repositories.bzl", container_repositories = "repositories")

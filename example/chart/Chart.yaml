@@ -25,4 +25,4 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: redis
-    version: 15.5.4
+    version: 16.12.2
