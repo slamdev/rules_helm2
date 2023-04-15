@@ -11,12 +11,21 @@ def rules_helm_internal_deps():
     "Fetch deps needed for local development"
     maybe(
         http_archive,
+        name = "rules_license",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_license/releases/download/0.0.1/rules_license-0.0.1.tar.gz",
+        ],
+        sha256 = "4865059254da674e3d18ab242e21c17f7e3e8c6b1f1421fffa4c5070f82e98b5",
+    )
+
+    maybe(
+        http_archive,
         name = "rules_pkg",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.2.4/rules_pkg-0.2.4.tar.gz",
-            "https://github.com/bazelbuild/rules_pkg/releases/download/0.2.4/rules_pkg-0.2.4.tar.gz",
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.7.1/rules_pkg-0.7.1.tar.gz",
+            "https://github.com/bazelbuild/rules_pkg/releases/download/0.7.1/rules_pkg-0.7.1.tar.gz",
         ],
-        sha256 = "4ba8f4ab0ff85f2484287ab06c0d871dcb31cc54d439457d28fd4ae14b18450a",
+        sha256 = "451e08a4d78988c06fa3f9306ec813b836b1d076d0f055595444ba4ff22b867f",
     )
 
     maybe(

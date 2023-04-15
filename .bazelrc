@@ -3,6 +3,9 @@
 # Settings that apply only to CI are in .github/workflows/ci.bazelrc
 build --nolegacy_external_runfiles
 
+# https://github.com/bazelbuild/rules_docker/pull/2068
+build --@io_bazel_rules_docker//transitions:enable=false
+
 # Load any settings specific to the current user.
 # .bazelrc.user should appear in .gitignore so that settings are not shared with team members
 # This needs to be last statement in this
