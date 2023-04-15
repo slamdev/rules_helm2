@@ -48,6 +48,9 @@ _ATTRS = {
     "template_output": attr.output(
         doc = "Filename to dump the rendered chart",
     ),
+    "skip_crds": attr.bool(
+        doc = "No CRDs will be installed",
+    ),
 }
 
 def _impl(ctx):
@@ -112,6 +115,8 @@ def _build_helm_command(ctx):
         args.append("--no-hooks")
     if ctx.attr.namespace:
         args.extend(["--namespace", ctx.attr.namespace])
+    if ctx.attr.skip_crds:
+        args.append("--skip-crds")
     return " ".join(args)
 
 def _build_template_command(ctx):
